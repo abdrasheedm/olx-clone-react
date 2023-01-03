@@ -1,38 +1,44 @@
-import React, {useEffect, useContext} from 'react';
-import './App.css';
-import Home from './Pages/Home';
-import Signup from './Pages/Signup'
-import Login from './Pages/Login'
-import Create from './Pages/Create'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { AuthContext, FirebaseContext } from './store/Context';
+import React, { useEffect, useContext } from "react";
+import "./App.css";
+import Home from "./Pages/Home";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import Create from "./Pages/Create";
+import ViewPost from "./Pages/ViewPost";
+import Post from "./store/PostContext";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { AuthContext, FirebaseContext } from "./store/Context";
 
 function App() {
-  const {setUser} = useContext(AuthContext)
-  const {firebase} = useContext(FirebaseContext)
+  const { setUser } = useContext(AuthContext);
+  const { firebase } = useContext(FirebaseContext);
 
-  useEffect(()=>{
-    firebase.auth().onAuthStateChanged((user)=>{
-      setUser(user)
-    })
-
-  })
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  });
   return (
     <div>
-      <Router>
-        <Route exact path='/'>
-      <Home />
-      </Route>
-      <Route path='/signup'>
-      <Signup />
-      </Route>
-      <Route path='/login'>
-      <Login />
-      </Route>
-      <Route path='/create'>
-      <Create />
-      </Route>
-      </Router>
+      <Post>
+        <Router>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/create">
+            <Create />
+          </Route>
+          <Route path="/view-post">
+            <ViewPost />
+          </Route>
+        </Router>
+      </Post>
     </div>
   );
 }
